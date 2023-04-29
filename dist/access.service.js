@@ -24,7 +24,7 @@ let AccessService = class AccessService {
     async findAll() {
         return this.accessRepository.find();
     }
-    async findUserById(id) {
+    async findOneById(id) {
         const getUser = { where: { id } };
         return this.accessRepository.findOne(getUser);
     }

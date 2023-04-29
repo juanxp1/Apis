@@ -22,7 +22,7 @@ let AccessController = class AccessController {
         this.accessService = accessService;
     }
     async findUserId(id) {
-        return this.accessService.findUserById(+id);
+        return this.accessService.findOneById(+id);
     }
 };
 __decorate([

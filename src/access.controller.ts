@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Access } from './access.entity';
 import { AccessService } from './access.service';
 
+
 @Controller('access')
 export class AccessController {
   constructor(
@@ -18,6 +19,8 @@ export class AccessController {
   async set(@Param('jac') jac: string): Promise<string> {
     return jac;
   }
+
+
 
   // @Put(':id')
   // async update(

@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { database } from '../database';
 import { Access } from './access.entity';
 import { AccessController } from './access.controller';
 import { AccessService } from './access.service';
@@ -8,17 +10,7 @@ import { AccessService } from './access.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'sip.jacgsaw.com',
-      port: 3306,
-      username: 'andrewx',
-      password: 'P40l1t47',
-      database: 'idrdgov_simgeneral',
-      entities: [Access],
-      synchronize: false,
-      //charset: 'utf8mb4', // establece el juego de caracteres en utf8mb4
-    }),
+    TypeOrmModule.forRoot(database),
     TypeOrmModule.forFeature([Access]),
   ],
   controllers: [AccessController],

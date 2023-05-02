@@ -18,4 +18,13 @@ export class AccessService {
     const getUser: FindOneOptions<Access> = { where: { id } };
     return this.accessRepository.findOne(getUser);
   }
+
+  async findByUsername(usuario: string): Promise<Access | undefined> {
+    const getUserForName: FindOneOptions<Access> = { where: { usuario } };
+    return this.accessRepository.findOne(getUserForName);
+  }
+
+  async create(user: Access): Promise<Access> {
+    return this.accessRepository.save(user);
+  }
 }

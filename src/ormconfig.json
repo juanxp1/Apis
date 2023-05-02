@@ -1,0 +1,10 @@
+{
+  "type": "mysql",
+  "host": "sip.jacgsaw.com",
+  "port": 3306,
+  "username": "andrewx",
+  "password": "P40l1t47",
+  "database": "idrdgov_simgeneral",
+  "entities": ["dist/**/*.entity{.ts,.js}"],
+  "synchronize": false
+}

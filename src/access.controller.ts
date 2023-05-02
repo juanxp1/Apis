@@ -14,6 +14,11 @@ export class AccessController {
     return this.accessService.findOneById(+id);
   }
 
+  @Get('jac/:jac')
+  async set(@Param('jac') jac: string): Promise<string> {
+    return jac;
+  }
+
   // @Put(':id')
   // async update(
   //   @Param('id') id: string,

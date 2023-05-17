@@ -1,8 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 dotenv.config();
-
-console.log(process.env.DATABASE_NAME);
 export const database: TypeOrmModuleOptions = {
   type: 'mysql',
   host: process.env.DATABASE_HOST,

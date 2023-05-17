@@ -17,22 +17,35 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const access_entity_1 = require("./access.entity");
 const access_service_1 = require("./access.service");
+const auth_service_1 = require("./auth.service");
+const JwtAuthGuard_1 = require("./JwtAuthGuard");
 let AccessController = class AccessController {
-    constructor(accessService) {
+    constructor(accessService, authService) {
         this.accessService = accessService;
+        this.authService = authService;
     }
-    async findUserId(id) {
+    async findUserId(id, data) {
+        console.log('jacgsaw-token-' + data['user'].username);
         return this.accessService.findOneById(+id);
     }
     async set(jac) {
+        const mockAccess = {
+            id: 1,
+            idusuario: 1,
+            usuario: 'alex',
+            contrasena: '123',
+        };
+        await this.authService.signIn(mockAccess);
         return jac;
     }
 };
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, common_1.UseGuards)(JwtAuthGuard_1.JwtAuthGuard),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Request]),
     __metadata("design:returntype", Promise)
 ], AccessController.prototype, "findUserId", null);
 __decorate([
@@ -45,7 +58,8 @@ __decorate([
 AccessController = __decorate([
     (0, common_1.Controller)('access'),
     __param(0, (0, typeorm_1.InjectRepository)(access_entity_1.Access)),
-    __metadata("design:paramtypes", [access_service_1.AccessService])
+    __metadata("design:paramtypes", [access_service_1.AccessService,
+        auth_service_1.AuthService])
 ], AccessController);
 exports.AccessController = AccessController;
 //# sourceMappingURL=access.controller.js.map

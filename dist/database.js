@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.database = void 0;
 const dotenv = require("dotenv");
 dotenv.config();
-console.log(process.env.DATABASE_NAME);
 exports.database = {
     type: 'mysql',
     host: process.env.DATABASE_HOST,

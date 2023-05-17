@@ -14,10 +14,12 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const bcrypt = require("bcrypt");
 const access_service_1 = require("./access.service");
+const config_1 = require("@nestjs/config");
 let AuthService = class AuthService {
-    constructor(usersService, jwtService) {
+    constructor(usersService, jwtService, configService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
+        this.configService = configService;
     }
     async signUp(createUserDto) {
         const hashedPassword = await bcrypt.hash(createUserDto.contrasena, 10);
@@ -29,14 +31,38 @@ let AuthService = class AuthService {
         if (!user) {
             throw new Error('User not found');
         }
-        const isPasswordValid = await bcrypt.compare(loginUserDto.contrasena, user.contrasena);
+        const hashedPassword = await bcrypt.hash(loginUserDto.contrasena, 10);
+        console.log('Jacgsaw-u-' + loginUserDto.contrasena);
+        console.log('Jacgsaw-h-' + hashedPassword);
+        const isPasswordValid = await bcrypt.compare(loginUserDto.contrasena, hashedPassword);
         if (!isPasswordValid) {
+            console.log('Jacgsaw-c-' + user.contrasena);
             throw new Error('Invalid password');
         }
         const payload = { username: user.usuario, sub: user.id };
+        console.log('jacgsaw-p-' +
+            this.jwtService.sign(payload, {
+                secret: this.configService.get('jwt.secret'),
+            }));
+        const isvailid = await this.validateToken(this.jwtService.sign(payload, {
+            secret: this.configService.get('jwt.secret'),
+        }));
+        console.log('jacgsaw-valid-' + isvailid.username);
         return {
-            access_token: this.jwtService.sign(payload),
+            access_token: this.jwtService.sign(payload, {
+                secret: this.configService.get('jwt.secret'),
+            }),
         };
+    }
+    async validateToken(token) {
+        try {
+            return this.jwtService.verify(token, {
+                secret: this.configService.get('jwt.secret'),
+            });
+        }
+        catch (error) {
+            throw new common_1.UnauthorizedException('Invalid token');
+        }
     }
     async validateUser(username, password) {
         const user = await this.usersService.findByUsername(username);
@@ -55,7 +81,8 @@ let AuthService = class AuthService {
 AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [access_service_1.AccessService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        config_1.ConfigService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

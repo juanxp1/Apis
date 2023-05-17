@@ -13,6 +13,9 @@ const database_1 = require("../database");
 const access_entity_1 = require("./access.entity");
 const access_controller_1 = require("./access.controller");
 const access_service_1 = require("./access.service");
+const auth_service_1 = require("./auth.service");
+const jwt_1 = require("@nestjs/jwt");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -20,9 +23,13 @@ AppModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot(database_1.database),
             typeorm_1.TypeOrmModule.forFeature([access_entity_1.Access]),
+            jwt_1.JwtModule.register({
+                secret: 'jacgsawx',
+                signOptions: { expiresIn: process.env.MOD_TIM },
+            }),
         ],
         controllers: [access_controller_1.AccessController],
-        providers: [access_service_1.AccessService],
+        providers: [access_service_1.AccessService, auth_service_1.AuthService, config_1.ConfigService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     jwt: {
-        secret: process.env.JWT_SECRET || 'institute_DRD',
+        secret: process.env.JWT_SECRET || 'Institute_DRD',
         expiresIn: '1d',
     },
 };

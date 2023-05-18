@@ -1,14 +1,14 @@
 import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Access } from './auth.entity';
+import { Users } from './auth.entity';
 import { UserService } from './user.service';
 import { AuthService } from './auth.service';
 import { JwtGuard } from './jwt.guard';
 
-@Controller('access')
+@Controller('auth')
 export class AuthController {
   constructor(
-    @InjectRepository(Access)
+    @InjectRepository(Users)
     private readonly accessService: UserService,
     private readonly authService: AuthService,
   ) {}
@@ -17,7 +17,7 @@ export class AuthController {
   async findUserId(
     @Param('id') id: string,
     @Req() data: Request,
-  ): Promise<Access> {
+  ): Promise<Users> {
     console.log('jacgsaw-token-' + data['user'].username);
     return this.accessService.findOneById(+id);
   }

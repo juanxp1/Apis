@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Access } from './auth.entity';
+import { Users } from './auth.entity';
 import * as bcrypt from 'bcrypt';
 import { UserService } from './user.service';
 import { ConfigService } from '@nestjs/config';
@@ -13,7 +13,7 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async signUp(createUserDto: Access): Promise<Access> {
+  async signUp(createUserDto: Users): Promise<Users> {
     const hashedPassword = await bcrypt.hash(createUserDto.contrasena, 10);
     const user = {
       ...createUserDto,
@@ -22,7 +22,7 @@ export class AuthService {
     return this.usersService.create(user);
   }
 
-  async signIn(loginUserDto: Access) {
+  async signIn(loginUserDto: Users) {
     const user = await this.usersService.findByUsername(loginUserDto.usuario);
     if (!user) {
       throw new Error('User not found');
@@ -71,7 +71,7 @@ export class AuthService {
   async validateUser(
     username: string,
     password: string,
-  ): Promise<Access | undefined> {
+  ): Promise<Users | undefined> {
     const user = await this.usersService.findByUsername(username);
     if (user && (await bcrypt.compare(password, user.contrasena))) {
       return user;

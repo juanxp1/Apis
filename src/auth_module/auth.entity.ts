@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Access {
+export class Users {
   @PrimaryGeneratedColumn()
   id: number;
 

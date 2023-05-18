@@ -1,30 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
-import { Access } from './auth.entity';
+import { Users } from './auth.entity';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(Access)
-    private readonly accessRepository: Repository<Access>,
+    @InjectRepository(Users)
+    private readonly accessRepository: Repository<Users>,
   ) {}
 
-  async findAll(): Promise<Access[]> {
+  async findAll(): Promise<Users[]> {
     return this.accessRepository.find();
   }
 
-  async findOneById(id: number): Promise<Access> {
-    const getUser: FindOneOptions<Access> = { where: { id } };
+  async findOneById(id: number): Promise<Users> {
+    const getUser: FindOneOptions<Users> = { where: { id } };
     return this.accessRepository.findOne(getUser);
   }
 
-  async findByUsername(usuario: string): Promise<Access | undefined> {
-    const getUserForName: FindOneOptions<Access> = { where: { usuario } };
+  async findByUsername(usuario: string): Promise<Users | undefined> {
+    const getUserForName: FindOneOptions<Users> = { where: { usuario } };
     return this.accessRepository.findOne(getUserForName);
   }
 
-  async create(user: Access): Promise<Access> {
+  async create(user: Users): Promise<Users> {
     return this.accessRepository.save(user);
   }
 }

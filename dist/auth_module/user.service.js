@@ -16,7 +16,7 @@ exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const auth_entity_1 = require("./auth.entity");
+const oid_entity_1 = require("./oid.entity");
 let UserService = class UserService {
     constructor(accessRepository) {
         this.accessRepository = accessRepository;
@@ -28,8 +28,8 @@ let UserService = class UserService {
         const getUser = { where: { id } };
         return this.accessRepository.findOne(getUser);
     }
-    async findByUsername(usuario) {
-        const getUserForName = { where: { usuario } };
+    async findByUsername(user) {
+        const getUserForName = { where: { user: user } };
         return this.accessRepository.findOne(getUserForName);
     }
     async create(user) {
@@ -38,7 +38,7 @@ let UserService = class UserService {
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(auth_entity_1.Access)),
+    __param(0, (0, typeorm_1.InjectRepository)(oid_entity_1.Oid)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
 ], UserService);
 exports.UserService = UserService;

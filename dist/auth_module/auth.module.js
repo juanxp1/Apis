@@ -10,7 +10,7 @@ exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const database_1 = require("../data_bases/database");
-const auth_entity_1 = require("./auth.entity");
+const oid_entity_1 = require("./oid.entity");
 const jwt_1 = require("@nestjs/jwt");
 const auth_controller_1 = require("./auth.controller");
 const user_service_1 = require("./user.service");
@@ -22,7 +22,7 @@ AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forRoot(database_1.database),
-            typeorm_1.TypeOrmModule.forFeature([auth_entity_1.Access]),
+            typeorm_1.TypeOrmModule.forFeature([oid_entity_1.Oid]),
             jwt_1.JwtModule.register({
                 secret: process.env.MOD_SCR,
                 signOptions: { expiresIn: process.env.MOD_TIM },

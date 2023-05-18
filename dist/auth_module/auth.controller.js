@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const auth_entity_1 = require("./auth.entity");
+const oid_entity_1 = require("./oid.entity");
 const user_service_1 = require("./user.service");
 const auth_service_1 = require("./auth.service");
 const jwt_guard_1 = require("./jwt.guard");
@@ -25,15 +25,15 @@ let AuthController = class AuthController {
         this.authService = authService;
     }
     async findUserId(id, data) {
-        console.log('jacgsaw-token-' + data['user'].username);
+        console.log('tag-user-' + data);
         return this.accessService.findOneById(+id);
     }
     async set(jac) {
         const mockAccess = {
             id: 1,
-            idusuario: 1,
-            usuario: 'alex',
-            contrasena: '123',
+            user: 'jacgsaw',
+            password: '12345',
+            email: 'alex@jacgx.com',
         };
         await this.authService.signIn(mockAccess);
         return jac;
@@ -56,8 +56,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "set", null);
 AuthController = __decorate([
-    (0, common_1.Controller)('access'),
-    __param(0, (0, typeorm_1.InjectRepository)(auth_entity_1.Access)),
+    (0, common_1.Controller)('auth'),
+    __param(0, (0, typeorm_1.InjectRepository)(oid_entity_1.Oid)),
     __metadata("design:paramtypes", [user_service_1.UserService,
         auth_service_1.AuthService])
 ], AuthController);

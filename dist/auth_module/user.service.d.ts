@@ -1,10 +1,10 @@
 import { Repository } from 'typeorm';
-import { Access } from './auth.entity';
+import { Oid } from './oid.entity';
 export declare class UserService {
     private readonly accessRepository;
-    constructor(accessRepository: Repository<Access>);
-    findAll(): Promise<Access[]>;
-    findOneById(id: number): Promise<Access>;
-    findByUsername(usuario: string): Promise<Access | undefined>;
-    create(user: Access): Promise<Access>;
+    constructor(accessRepository: Repository<Oid>);
+    findAll(): Promise<Oid[]>;
+    findOneById(id: number): Promise<Oid>;
+    findByUsername(user: string): Promise<Oid | undefined>;
+    create(user: Oid): Promise<Oid>;
 }

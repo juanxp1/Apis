@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Users } from './auth.entity';
+import { Oid } from './oid.entity';
 import * as bcrypt from 'bcrypt';
 import { UserService } from './user.service';
 import { ConfigService } from '@nestjs/config';
@@ -13,8 +13,8 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async signUp(createUserDto: Users): Promise<Users> {
-    const hashedPassword = await bcrypt.hash(createUserDto.contrasena, 10);
+  async signUp(createUserDto: Oid): Promise<Oid> {
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     const user = {
       ...createUserDto,
       password: hashedPassword,
@@ -22,35 +22,35 @@ export class AuthService {
     return this.usersService.create(user);
   }
 
-  async signIn(loginUserDto: Users) {
-    const user = await this.usersService.findByUsername(loginUserDto.usuario);
+  async signIn(loginUserDto: Oid) {
+    const user = await this.usersService.findByUsername(loginUserDto.user);
     if (!user) {
       throw new Error('User not found');
     }
-    const hashedPassword = await bcrypt.hash(loginUserDto.contrasena, 10);
-    console.log('Jacgsaw-u-' + loginUserDto.contrasena);
-    console.log('Jacgsaw-h-' + hashedPassword);
+    const hashedPassword = await bcrypt.hash(loginUserDto.password, 10);
+    console.log('tag-p-' + loginUserDto.password);
+    console.log('tag-h-' + hashedPassword);
     const isPasswordValid = await bcrypt.compare(
-      loginUserDto.contrasena,
+      loginUserDto.password,
       hashedPassword,
     );
     if (!isPasswordValid) {
-      console.log('Jacgsaw-c-' + user.contrasena);
+      console.log('tag-p-' + user.password);
       throw new Error('Invalid password');
     }
-    const payload = { username: user.usuario, sub: user.id };
+    const payload = { username: user.user, sub: user.id };
     console.log(
-      'jacgsaw-p-' +
+      'tag-jwt-' +
         this.jwtService.sign(payload, {
           secret: this.configService.get('jwt.secret'),
         }),
     );
-    const isvailid = await this.validateToken(
+    const isValid = await this.validateToken(
       this.jwtService.sign(payload, {
         secret: this.configService.get('jwt.secret'),
       }),
     );
-    console.log('jacgsaw-valid-' + isvailid.username);
+    console.log('jacgsaw-valid-' + isValid.username);
     return {
       access_token: this.jwtService.sign(payload, {
         secret: this.configService.get('jwt.secret'),
@@ -71,9 +71,9 @@ export class AuthService {
   async validateUser(
     username: string,
     password: string,
-  ): Promise<Users | undefined> {
+  ): Promise<Oid | undefined> {
     const user = await this.usersService.findByUsername(username);
-    if (user && (await bcrypt.compare(password, user.contrasena))) {
+    if (user && (await bcrypt.compare(password, user.password))) {
       return user;
     }
     return undefined;

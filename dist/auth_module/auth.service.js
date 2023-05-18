@@ -22,32 +22,32 @@ let AuthService = class AuthService {
         this.configService = configService;
     }
     async signUp(createUserDto) {
-        const hashedPassword = await bcrypt.hash(createUserDto.contrasena, 10);
+        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
         const user = Object.assign(Object.assign({}, createUserDto), { password: hashedPassword });
         return this.usersService.create(user);
     }
     async signIn(loginUserDto) {
-        const user = await this.usersService.findByUsername(loginUserDto.usuario);
+        const user = await this.usersService.findByUsername(loginUserDto.user);
         if (!user) {
             throw new Error('User not found');
         }
-        const hashedPassword = await bcrypt.hash(loginUserDto.contrasena, 10);
-        console.log('Jacgsaw-u-' + loginUserDto.contrasena);
-        console.log('Jacgsaw-h-' + hashedPassword);
-        const isPasswordValid = await bcrypt.compare(loginUserDto.contrasena, hashedPassword);
+        const hashedPassword = await bcrypt.hash(loginUserDto.password, 10);
+        console.log('tag-p-' + loginUserDto.password);
+        console.log('tag-h-' + hashedPassword);
+        const isPasswordValid = await bcrypt.compare(loginUserDto.password, hashedPassword);
         if (!isPasswordValid) {
-            console.log('Jacgsaw-c-' + user.contrasena);
+            console.log('tag-p-' + user.password);
             throw new Error('Invalid password');
         }
-        const payload = { username: user.usuario, sub: user.id };
-        console.log('jacgsaw-p-' +
+        const payload = { username: user.user, sub: user.id };
+        console.log('tag-jwt-' +
             this.jwtService.sign(payload, {
                 secret: this.configService.get('jwt.secret'),
             }));
-        const isvailid = await this.validateToken(this.jwtService.sign(payload, {
+        const isValid = await this.validateToken(this.jwtService.sign(payload, {
             secret: this.configService.get('jwt.secret'),
         }));
-        console.log('jacgsaw-valid-' + isvailid.username);
+        console.log('jacgsaw-valid-' + isValid.username);
         return {
             access_token: this.jwtService.sign(payload, {
                 secret: this.configService.get('jwt.secret'),
@@ -66,7 +66,7 @@ let AuthService = class AuthService {
     }
     async validateUser(username, password) {
         const user = await this.usersService.findByUsername(username);
-        if (user && (await bcrypt.compare(password, user.contrasena))) {
+        if (user && (await bcrypt.compare(password, user.password))) {
             return user;
         }
         return undefined;

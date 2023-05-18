@@ -9,28 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Access = void 0;
+exports.Oid = void 0;
 const typeorm_1 = require("typeorm");
-let Access = class Access {
+let Oid = class Oid {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Access.prototype, "id", void 0);
+], Oid.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Access.prototype, "idusuario", void 0);
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Oid.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Access.prototype, "usuario", void 0);
+], Oid.prototype, "password", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Access.prototype, "contrasena", void 0);
-Access = __decorate([
+], Oid.prototype, "email", void 0);
+Oid = __decorate([
     (0, typeorm_1.Entity)()
-], Access);
-exports.Access = Access;
-//# sourceMappingURL=auth.entity.js.map
+], Oid);
+exports.Oid = Oid;
+//# sourceMappingURL=oid.entity.js.map

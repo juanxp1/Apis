@@ -1,5 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
-import { Access } from './auth.entity';
+import { Oid } from './oid.entity';
 import { UserService } from './user.service';
 import { ConfigService } from '@nestjs/config';
 export declare class AuthService {
@@ -7,12 +7,12 @@ export declare class AuthService {
     private readonly jwtService;
     private configService;
     constructor(usersService: UserService, jwtService: JwtService, configService: ConfigService);
-    signUp(createUserDto: Access): Promise<Access>;
-    signIn(loginUserDto: Access): Promise<{
+    signUp(createUserDto: Oid): Promise<Oid>;
+    signIn(loginUserDto: Oid): Promise<{
         access_token: string;
     }>;
     validateToken(token: string): Promise<any>;
-    validateUser(username: string, password: string): Promise<Access | undefined>;
+    validateUser(username: string, password: string): Promise<Oid | undefined>;
     login(user: any): Promise<{
         access_token: string;
     }>;

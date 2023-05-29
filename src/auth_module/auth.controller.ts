@@ -18,7 +18,7 @@ export class AuthController {
     @Param('id') id: string,
     @Req() data: Request,
   ): Promise<Oid> {
-    console.log('tag-user-' + data);
+    console.log('tag-user-' + data['user'].sub);
     return this.accessService.findOneById(+id);
   }
 

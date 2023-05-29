@@ -25,7 +25,7 @@ let AuthController = class AuthController {
         this.authService = authService;
     }
     async findUserId(id, data) {
-        console.log('tag-user-' + data);
+        console.log('tag-user-' + data['user'].sub);
         return this.accessService.findOneById(+id);
     }
     async set(jac) {

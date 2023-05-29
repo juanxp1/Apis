@@ -38,7 +38,7 @@ export class AuthService {
       console.log('tag-p-' + user.password);
       throw new Error('Invalid password');
     }
-    const payload = { username: user.user, sub: user.id };
+    const payload = { auth: user.user, sub: user.id };
     console.log(
       'tag-jwt-' +
         this.jwtService.sign(payload, {

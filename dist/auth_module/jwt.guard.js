@@ -29,7 +29,8 @@ let JwtGuard = class JwtGuard extends (0, passport_1.AuthGuard)('jwt') {
         if (!payload) {
             return false;
         }
-        console.log('tag-get-user:', request.user);
+        request.user = payload;
+        console.log('tag-get-user:', request.user.username);
         console.log('tag-payload-:', payload);
         return true;
     }

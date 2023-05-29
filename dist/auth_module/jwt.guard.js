@@ -30,7 +30,7 @@ let JwtGuard = class JwtGuard extends (0, passport_1.AuthGuard)('jwt') {
             return false;
         }
         request.user = payload;
-        console.log('tag-get-user:', request.user.username);
+        console.log('tag-get-user:', request.user.auth);
         console.log('tag-payload-:', payload);
         return true;
     }

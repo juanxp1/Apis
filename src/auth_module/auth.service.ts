@@ -28,14 +28,14 @@ export class AuthService {
       throw new Error('User not found');
     }
     const hashedPassword = await bcrypt.hash(loginUserDto.password, 10);
-    console.log('tag-p-' + loginUserDto.password);
-    console.log('tag-h-' + hashedPassword);
+    console.log('tag-p-' + user.password);
+    console.log('tag-h-' + loginUserDto.password);
     const isPasswordValid = await bcrypt.compare(
       loginUserDto.password,
-      hashedPassword,
+      user.password,
     );
     if (!isPasswordValid) {
-      console.log('tag-p-' + user.password);
+      console.log('tag-c-' + loginUserDto.password);
       throw new Error('Invalid password');
     }
     const payload = { auth: user.user, sub: user.id };
@@ -50,7 +50,7 @@ export class AuthService {
         secret: this.configService.get('jwt.secret'),
       }),
     );
-    console.log('jacgsaw-valid-' + isValid.username);
+    console.log('jacgsaw-valid-' + isValid.auth);
     return {
       access_token: this.jwtService.sign(payload, {
         secret: this.configService.get('jwt.secret'),

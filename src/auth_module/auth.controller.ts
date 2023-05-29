@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Oid } from './oid.entity';
 import { UserService } from './user.service';
@@ -18,16 +26,27 @@ export class AuthController {
     @Param('id') id: string,
     @Req() data: Request,
   ): Promise<Oid> {
-    console.log('tag-user-' + data['user'].sub);
+    console.log('tag-user-' + data['user'].auth);
     return this.accessService.findOneById(+id);
+  }
+
+  @Post('create')
+  @UseGuards(JwtGuard)
+  async setNewUser(@Body() user: Oid): Promise<Oid> {
+    return this.authService.signUp(user);
+  }
+
+  @Post('login')
+  async getLogin(@Body() user: Oid): Promise<{ access_token: string }> {
+    return this.authService.signIn(user);
   }
 
   @Get('jac/:jac')
   async set(@Param('jac') jac: string): Promise<string> {
     const mockAccess = {
       id: 1,
-      user: 'jacgsaw',
-      password: '12345',
+      user: 'Andrew',
+      password: '7654321',
       email: 'alex@jacgx.com',
     };
     await this.authService.signIn(mockAccess);

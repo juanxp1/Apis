@@ -25,14 +25,20 @@ let AuthController = class AuthController {
         this.authService = authService;
     }
     async findUserId(id, data) {
-        console.log('tag-user-' + data['user'].sub);
+        console.log('tag-user-' + data['user'].auth);
         return this.accessService.findOneById(+id);
+    }
+    async setNewUser(user) {
+        return this.authService.signUp(user);
+    }
+    async getLogin(user) {
+        return this.authService.signIn(user);
     }
     async set(jac) {
         const mockAccess = {
             id: 1,
-            user: 'jacgsaw',
-            password: '12345',
+            user: 'Andrew',
+            password: '7654321',
             email: 'alex@jacgx.com',
         };
         await this.authService.signIn(mockAccess);
@@ -48,6 +54,21 @@ __decorate([
     __metadata("design:paramtypes", [String, Request]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "findUserId", null);
+__decorate([
+    (0, common_1.Post)('create'),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [oid_entity_1.Oid]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "setNewUser", null);
+__decorate([
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [oid_entity_1.Oid]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "getLogin", null);
 __decorate([
     (0, common_1.Get)('jac/:jac'),
     __param(0, (0, common_1.Param)('jac')),

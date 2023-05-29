@@ -40,16 +40,4 @@ export class AuthController {
   async getLogin(@Body() user: Oid): Promise<{ access_token: string }> {
     return this.authService.signIn(user);
   }
-
-  @Get('jac/:jac')
-  async set(@Param('jac') jac: string): Promise<string> {
-    const mockAccess = {
-      id: 1,
-      user: 'Andrew',
-      password: '7654321',
-      email: 'alex@jacgx.com',
-    };
-    await this.authService.signIn(mockAccess);
-    return jac;
-  }
 }

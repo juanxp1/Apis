@@ -1,5 +1,5 @@
 import { ExecutionContext } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 declare const JwtGuard_base: import("@nestjs/passport").Type<import("@nestjs/passport").IAuthGuard>;
 export declare class JwtGuard extends JwtGuard_base {
     private readonly authService;

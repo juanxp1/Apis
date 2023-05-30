@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const oid_entity_1 = require("./oid.entity");
-const user_service_1 = require("./user.service");
-const auth_service_1 = require("./auth.service");
-const jwt_guard_1 = require("./jwt.guard");
+const oid_entity_1 = require("../entity/oid.entity");
+const user_service_1 = require("../services/user.service");
+const auth_service_1 = require("../services/auth.service");
+const jwt_guard_1 = require("../jwt.guard");
 let AuthController = class AuthController {
     constructor(accessService, authService) {
         this.accessService = accessService;
@@ -33,16 +33,6 @@ let AuthController = class AuthController {
     }
     async getLogin(user) {
         return this.authService.signIn(user);
-    }
-    async set(jac) {
-        const mockAccess = {
-            id: 1,
-            user: 'Andrew',
-            password: '7654321',
-            email: 'alex@jacgx.com',
-        };
-        await this.authService.signIn(mockAccess);
-        return jac;
     }
 };
 __decorate([
@@ -69,13 +59,6 @@ __decorate([
     __metadata("design:paramtypes", [oid_entity_1.Oid]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getLogin", null);
-__decorate([
-    (0, common_1.Get)('jac/:jac'),
-    __param(0, (0, common_1.Param)('jac')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "set", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __param(0, (0, typeorm_1.InjectRepository)(oid_entity_1.Oid)),

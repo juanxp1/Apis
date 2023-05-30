@@ -10,11 +10,11 @@ exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const database_1 = require("../data_bases/database");
-const oid_entity_1 = require("./oid.entity");
+const oid_entity_1 = require("./entity/oid.entity");
 const jwt_1 = require("@nestjs/jwt");
-const auth_controller_1 = require("./auth.controller");
-const user_service_1 = require("./user.service");
-const auth_service_1 = require("./auth.service");
+const auth_controller_1 = require("./controller/auth.controller");
+const user_service_1 = require("./services/user.service");
+const auth_service_1 = require("./services/auth.service");
 const config_1 = require("@nestjs/config");
 let AuthModule = class AuthModule {
 };

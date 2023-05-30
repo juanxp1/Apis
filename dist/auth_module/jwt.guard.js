@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.JwtGuard = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
-const auth_service_1 = require("./auth.service");
+const auth_service_1 = require("./services/auth.service");
 let JwtGuard = class JwtGuard extends (0, passport_1.AuthGuard)('jwt') {
     constructor(authService) {
         super();
@@ -30,8 +30,6 @@ let JwtGuard = class JwtGuard extends (0, passport_1.AuthGuard)('jwt') {
             return false;
         }
         request.user = payload;
-        console.log('tag-get-user:', request.user.auth);
-        console.log('tag-payload-:', payload);
         return true;
     }
 };

@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Oid } from './oid.entity';
+import { Oid } from '../entity/oid.entity';
 export declare class UserService {
     private readonly accessRepository;
     constructor(accessRepository: Repository<Oid>);

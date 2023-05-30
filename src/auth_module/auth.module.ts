@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { database } from '../data_bases/database';
-import { Oid } from './oid.entity';
+import { Oid } from './entity/oid.entity';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthController } from './auth.controller';
-import { UserService } from './user.service';
-import { AuthService } from './auth.service';
+import { AuthController } from './controller/auth.controller';
+import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 import { ConfigService } from '@nestjs/config';
 
 @Module({

@@ -1,6 +1,6 @@
-import { Oid } from './oid.entity';
-import { UserService } from './user.service';
-import { AuthService } from './auth.service';
+import { Oid } from '../entity/oid.entity';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 export declare class AuthController {
     private readonly accessService;
     private readonly authService;
@@ -10,5 +10,4 @@ export declare class AuthController {
     getLogin(user: Oid): Promise<{
         access_token: string;
     }>;
-    set(jac: string): Promise<string>;
 }

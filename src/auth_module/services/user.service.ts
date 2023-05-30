@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
-import { Oid } from './oid.entity';
+import { Oid } from '../entity/oid.entity';
 
 @Injectable()
 export class UserService {

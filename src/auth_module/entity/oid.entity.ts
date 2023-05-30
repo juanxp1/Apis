@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { OidDto } from '../dto/oid.dto';
 
 @Entity()
 export class Oid {
@@ -13,4 +14,12 @@ export class Oid {
 
   @Column()
   email: string;
+
+  static mapToDto(userDto: OidDto): Oid {
+    const user = new Oid();
+    user.user = userDto.user;
+    user.password = userDto.password;
+    user.email = userDto.email;
+    return user;
+  }
 }

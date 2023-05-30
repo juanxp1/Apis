@@ -1,5 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
-import { Oid } from './oid.entity';
+import { Oid } from '../entity/oid.entity';
 import { UserService } from './user.service';
 import { ConfigService } from '@nestjs/config';
 export declare class AuthService {

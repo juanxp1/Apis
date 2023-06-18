@@ -7,7 +7,7 @@ export declare class AuthService {
     private readonly jwtService;
     private configService;
     constructor(usersService: UserService, jwtService: JwtService, configService: ConfigService);
-    signUp(createUserDto: Oid): Promise<Oid>;
+    signUp(createUserEntity: Oid): Promise<Oid>;
     signIn(loginUserDto: Oid): Promise<{
         access_token: string;
     }>;

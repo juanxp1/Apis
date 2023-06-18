@@ -13,10 +13,10 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async signUp(createUserDto: Oid): Promise<Oid> {
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+  async signUp(createUserEntity: Oid): Promise<Oid> {
+    const hashedPassword = await bcrypt.hash(createUserEntity.password, 10);
     const user = {
-      ...createUserDto,
+      ...createUserEntity,
       password: hashedPassword,
     };
     return this.usersService.create(user);

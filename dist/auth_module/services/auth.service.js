@@ -21,9 +21,9 @@ let AuthService = class AuthService {
         this.jwtService = jwtService;
         this.configService = configService;
     }
-    async signUp(createUserDto) {
-        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-        const user = Object.assign(Object.assign({}, createUserDto), { password: hashedPassword });
+    async signUp(createUserEntity) {
+        const hashedPassword = await bcrypt.hash(createUserEntity.password, 10);
+        const user = Object.assign(Object.assign({}, createUserEntity), { password: hashedPassword });
         return this.usersService.create(user);
     }
     async signIn(loginUserDto) {

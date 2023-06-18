@@ -19,6 +19,7 @@ const oid_entity_1 = require("../entity/oid.entity");
 const user_service_1 = require("../services/user.service");
 const auth_service_1 = require("../services/auth.service");
 const jwt_guard_1 = require("../jwt.guard");
+const oid_dto_1 = require("../dto/oid.dto");
 let AuthController = class AuthController {
     constructor(accessService, authService) {
         this.accessService = accessService;
@@ -29,10 +30,12 @@ let AuthController = class AuthController {
         return this.accessService.findOneById(+id);
     }
     async setNewUser(user) {
-        return this.authService.signUp(user);
+        const userDto = oid_entity_1.Oid.mapToDto(user);
+        return this.authService.signUp(userDto);
     }
     async getLogin(user) {
-        return this.authService.signIn(user);
+        const userDto = oid_entity_1.Oid.mapToDto(user);
+        return this.authService.signIn(userDto);
     }
 };
 __decorate([
@@ -49,7 +52,7 @@ __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [oid_entity_1.Oid]),
+    __metadata("design:paramtypes", [oid_dto_1.OidDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "setNewUser", null);
 __decorate([

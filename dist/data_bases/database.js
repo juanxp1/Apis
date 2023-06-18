@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.database = void 0;
+const loadEnvVariables_1 = require("../loadEnvVariables");
 const dotenv = require("dotenv");
 dotenv.config();
+(0, loadEnvVariables_1.loadEnvVariables)();
 exports.database = {
     type: 'mysql',
     host: process.env.DATABASE_HOST,

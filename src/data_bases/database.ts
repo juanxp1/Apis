@@ -1,6 +1,10 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { loadEnvVariables } from '../loadEnvVariables';
 import * as dotenv from 'dotenv';
 dotenv.config();
+
+loadEnvVariables();
+
 export const database: TypeOrmModuleOptions = {
   type: 'mysql',
   host: process.env.DATABASE_HOST,

@@ -9,15 +9,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UtilsModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
-const cert_dummy_lab_key_v2_pem_1 = require("../../certified/cert_dummy_lab_key_v2.pem");
-const cert_dummy_lab_v2_crt_1 = require("../../certified/cert_dummy_lab_v2.crt");
 let UtilsModule = class UtilsModule {
 };
 UtilsModule = __decorate([
     (0, common_1.Module)({
         imports: [],
         controllers: [],
-        providers: [config_1.ConfigService, cert_dummy_lab_key_v2_pem_1.certPem, cert_dummy_lab_v2_crt_1.certCrt],
+        providers: [config_1.ConfigService],
     })
 ], UtilsModule);
 exports.UtilsModule = UtilsModule;

@@ -14,67 +14,25 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DaviplataController = void 0;
 const common_1 = require("@nestjs/common");
-const buy_daviplata_dto_1 = require("../../dto/buy-daviplata.dto");
-const otp_daviplata_dto_1 = require("../../dto/otp-daviplata.dto");
-const confirm_daviplata_dto_1 = require("../../dto/confirm-daviplata.dto");
 const daviplata_service_1 = require("../../services/daviplata/daviplata.service");
-const typeorm_1 = require("@nestjs/typeorm");
-const payment_entity_1 = require("../../entities/payment.entity");
+const token_request_dto_1 = require("../../dto/token-request.dto");
 let DaviplataController = class DaviplataController {
     constructor(daviplataService) {
         this.daviplataService = daviplataService;
     }
-    async auth(res) {
-        const response = await this.daviplataService.auth();
-        res.status(response.statusCode).json(response);
-    }
-    async buy(params, res) {
-        const response = await this.daviplataService.buy(params);
-        res.status(response.statusCode).json(response);
-    }
-    async otp(params, res) {
-        const response = await this.daviplataService.otp(params);
-        res.status(response.statusCode).json(response);
-    }
-    async confirm(params, res) {
-        const response = await this.daviplataService.confirm(params);
-        res.status(response.statusCode).json(response);
+    async getTokenV2(tokenRequestDto) {
+        return this.daviplataService.getTokenV2();
     }
 };
 __decorate([
-    (0, common_1.Get)('auth-daviplata'),
-    __param(0, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], DaviplataController.prototype, "auth", null);
-__decorate([
-    (0, common_1.Post)('buy-daviplata'),
+    (0, common_1.Post)('getTokenV2'),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [buy_daviplata_dto_1.BuyDaviplataDto, Object]),
+    __metadata("design:paramtypes", [token_request_dto_1.TokenRequestDto]),
     __metadata("design:returntype", Promise)
-], DaviplataController.prototype, "buy", null);
-__decorate([
-    (0, common_1.Post)('otp-daviplata'),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [otp_daviplata_dto_1.OtpDaviplataDto, Object]),
-    __metadata("design:returntype", Promise)
-], DaviplataController.prototype, "otp", null);
-__decorate([
-    (0, common_1.Post)('confirm-daviplata'),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [confirm_daviplata_dto_1.ConfirmDaviplataDto, Object]),
-    __metadata("design:returntype", Promise)
-], DaviplataController.prototype, "confirm", null);
+], DaviplataController.prototype, "getTokenV2", null);
 DaviplataController = __decorate([
     (0, common_1.Controller)('daviplata'),
-    __param(0, (0, typeorm_1.InjectRepository)(payment_entity_1.Payment)),
     __metadata("design:paramtypes", [daviplata_service_1.DaviplataService])
 ], DaviplataController);
 exports.DaviplataController = DaviplataController;

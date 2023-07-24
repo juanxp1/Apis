@@ -6,17 +6,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.UtilsModule = void 0;
 const common_1 = require("@nestjs/common");
-const auth_module_1 = require("./auth_module/auth.module");
-const payment_module_1 = require("./payments/payment.module");
-let AppModule = class AppModule {
+const config_1 = require("@nestjs/config");
+const cert_dummy_lab_key_v2_pem_1 = require("../../certified/cert_dummy_lab_key_v2.pem");
+const cert_dummy_lab_v2_crt_1 = require("../../certified/cert_dummy_lab_v2.crt");
+let UtilsModule = class UtilsModule {
 };
-AppModule = __decorate([
+UtilsModule = __decorate([
     (0, common_1.Module)({
-        imports: [auth_module_1.AuthModule, payment_module_1.PaymentModule],
-        providers: [],
+        imports: [],
+        controllers: [],
+        providers: [config_1.ConfigService, cert_dummy_lab_key_v2_pem_1.certPem, cert_dummy_lab_v2_crt_1.certCrt],
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], UtilsModule);
+exports.UtilsModule = UtilsModule;
+//# sourceMappingURL=utils.module.js.map

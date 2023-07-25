@@ -20,8 +20,9 @@ let DaviplataController = class DaviplataController {
     constructor(daviplataService) {
         this.daviplataService = daviplataService;
     }
-    async getTokenV2(tokenRequestDto) {
-        return this.daviplataService.getTokenV2();
+    async getTokenV2(token) {
+        console.log('jacgsaw-dto', token.client_id);
+        return this.daviplataService.getTokenV2(token);
     }
 };
 __decorate([

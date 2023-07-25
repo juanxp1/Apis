@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DaviplataService = void 0;
 const common_1 = require("@nestjs/common");
@@ -27,28 +28,25 @@ let DaviplataService = class DaviplataService {
         this.paymentRepository = paymentRepository;
         this.configService = configService;
         const certsDir = path.join(__dirname, '../../../utils/certified/');
-        console.log('jacgsaw', __dirname);
         this.certPath = path.join(certsDir, 'cert_dummy_lab_v2.crt');
         this.keyPath = path.join(certsDir, 'cert_dummy_lab_key_v2.pem');
-        console.log('jacgsaw-cert', this.certPath);
-        console.log('jacgsaw-key', this.keyPath);
-        console.log('jacgsaw-dir', certsDir);
         this.agent = new https.Agent({
             cert: fs.readFileSync(this.certPath),
             key: fs.readFileSync(this.keyPath),
         });
+        this.apiUrl = 'https://apislab.daviplata.com/oauth2Provider/type1/v1/token';
+        this.requestHeaders = {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+        };
     }
-    async getTokenV2() {
-        const data = 'grant_type=client_credentials&client_id=UK67GogoRliAuUm9HNAURzzHn3K2EHxemYKTPtFHgtkESrC2&client_secret=wcYPCx1DpdjA9ybAQHkRkVqv3Iq8QuOLSoLZGaMYcX0kwgH68RJfvwIdj9TqzuNu&scope=daviplata';
+    async getTokenV2(tokenRequestDto) {
+        const data = `grant_type=${tokenRequestDto.grant_type}&client_id=${tokenRequestDto.client_id}&client_secret=${tokenRequestDto.client_secret}&scope=${tokenRequestDto.scope}`;
         const config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://apislab.daviplata.com/oauth2Provider/type1/v1/token',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
-                Cookie: 'incap_ses_1599_2684467=OGQ0DwgG71Wai9cqKsowFnzjvmQAAAAA2YeaI+KVIYOGAQ2c6iU88A==; nlbi_2684467=JHA3LdbGhBQXqZihJj8ifgAAAAASgSKYELLjjg+BY/ezuIRl; visid_incap_2684467=M7b9/r89QxyLFmDitFna9GpmUWQAAAAAQUIPAAAAAACNVeZqF3B4A5dMS6b3T5jl',
-            },
+            url: this.apiUrl,
+            headers: this.requestHeaders,
             data: data,
             httpsAgent: this.agent,
         };
@@ -65,8 +63,7 @@ let DaviplataService = class DaviplataService {
 DaviplataService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(payment_entity_1.Payment)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        config_1.ConfigService])
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object, typeof (_b = typeof config_1.ConfigService !== "undefined" && config_1.ConfigService) === "function" ? _b : Object])
 ], DaviplataService);
 exports.DaviplataService = DaviplataService;
 //# sourceMappingURL=daviplata.service.js.map

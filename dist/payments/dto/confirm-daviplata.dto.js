@@ -15,22 +15,23 @@ class ConfirmDaviplataDto {
 }
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], ConfirmDaviplataDto.prototype, "token", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
 ], ConfirmDaviplataDto.prototype, "otp", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], ConfirmDaviplataDto.prototype, "idSessionToken", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Object)
-], ConfirmDaviplataDto.prototype, "formPse", void 0);
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ConfirmDaviplataDto.prototype, "idComercio", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ConfirmDaviplataDto.prototype, "idTerminal", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], ConfirmDaviplataDto.prototype, "idTransaccion", void 0);
 exports.ConfirmDaviplataDto = ConfirmDaviplataDto;
 //# sourceMappingURL=confirm-daviplata.dto.js.map

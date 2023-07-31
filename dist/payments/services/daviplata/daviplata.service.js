@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DaviplataService = void 0;
 const common_1 = require("@nestjs/common");
@@ -27,6 +26,7 @@ let DaviplataService = class DaviplataService {
     constructor(paymentRepository, configService) {
         this.paymentRepository = paymentRepository;
         this.configService = configService;
+        this.accessToken = '';
         const certsDir = path.join(__dirname, '../../../utils/certified/');
         this.certPath = path.join(certsDir, 'cert_dummy_lab_v2.crt');
         this.keyPath = path.join(certsDir, 'cert_dummy_lab_key_v2.pem');
@@ -35,6 +35,9 @@ let DaviplataService = class DaviplataService {
             key: fs.readFileSync(this.keyPath),
         });
         this.apiUrl = 'https://apislab.daviplata.com/oauth2Provider/type1/v1/token';
+        this.apiUrlCompra = 'https://apislab.daviplata.com/daviplata/v1/compra';
+        this.apiUrlOpt = 'https://apislab.daviplata.com/otpSec/v1/read',
+            this.apiUrlConfirm = 'https://apislab.daviplata.com/daviplata/v1/confirmarCompra';
         this.requestHeaders = {
             Accept: 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -52,6 +55,8 @@ let DaviplataService = class DaviplataService {
         };
         try {
             const response = await axios_1.default.request(config);
+            this.accessToken = response.data.access_token;
+            console.log('token', this.accessToken);
             return response.data;
         }
         catch (error) {
@@ -59,11 +64,90 @@ let DaviplataService = class DaviplataService {
             return null;
         }
     }
+    async realizarCompraV1(compraData) {
+        const config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: this.apiUrlCompra,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${this.accessToken}`,
+                'x-ibm-client-id': 'UK67GogoRliAuUm9HNAURzzHn3K2EHxemYKTPtFHgtkESrC2',
+                'Content-Type': 'application/json',
+            },
+            data: {
+                valor: compraData.valor,
+                numeroIdentificacion: compraData.numeroIdentificacion,
+                tipoDocumento: compraData.tipoDocumento,
+            },
+            httpsAgent: this.agent,
+        };
+        try {
+            const response = await axios_1.default.request(config);
+            this.idSessionToken = response.data.idSessionToken;
+            return response.data;
+        }
+        catch (error) {
+            console.log('Error al realizar la compra:', error.message);
+            throw new common_1.HttpException('Error al realizar la compra', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async readOtp(readOtpData) {
+        const config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: this.apiUrlOpt,
+            headers: {
+                Accept: 'application/json',
+                'x-ibm-client-id': 'UK67GogoRliAuUm9HNAURzzHn3K2EHxemYKTPtFHgtkESrC2',
+                'Content-Type': 'application/json',
+            },
+            data: readOtpData,
+            httpsAgent: this.agent,
+        };
+        try {
+            const response = await axios_1.default.request(config);
+            this.otp = response.data.otp;
+            return response.data;
+        }
+        catch (error) {
+            console.log('Error al leer OTP:', error);
+            throw new Error('Error al leer OTP');
+        }
+    }
+    async confirmarCompraV1(confirmarCompraData) {
+        const config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: this.apiUrlConfirm,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${this.accessToken}`,
+                'x-ibm-client-id': 'UK67GogoRliAuUm9HNAURzzHn3K2EHxemYKTPtFHgtkESrC2',
+                'Content-Type': 'application/json',
+                'otp': this.otp,
+                'idSessionToken': this.idSessionToken,
+            },
+            data: confirmarCompraData,
+            httpsAgent: this.agent,
+            timeout: 60000,
+        };
+        try {
+            const response = await axios_1.default.request(config);
+            console.log(response, 'HOLAAA');
+            return response.data;
+        }
+        catch (error) {
+            console.log('Error al confirmar la compra:', error);
+            throw new Error('Error al confirmar la compra');
+        }
+    }
 };
 DaviplataService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(payment_entity_1.Payment)),
-    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object, typeof (_b = typeof config_1.ConfigService !== "undefined" && config_1.ConfigService) === "function" ? _b : Object])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        config_1.ConfigService])
 ], DaviplataService);
 exports.DaviplataService = DaviplataService;
 //# sourceMappingURL=daviplata.service.js.map

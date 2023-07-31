@@ -1,18 +1,23 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, isString } from 'class-validator';
 
 export class ConfirmDaviplataDto {
   @IsString()
-  @IsNotEmpty()
-  readonly token: string;
+  
+  readonly otp: string;
 
   @IsString()
-  @IsNotEmpty()
-  readonly otp: number;
-
-  @IsString()
-  @IsNotEmpty()
+  
   readonly idSessionToken: string;
 
-  @IsNotEmpty()
-  readonly formPse: any;
+  @IsString()
+
+  readonly idComercio: string;
+
+  @IsString()
+
+  readonly idTerminal: string;
+
+  @IsNumber()
+  
+  readonly idTransaccion: number;
 }

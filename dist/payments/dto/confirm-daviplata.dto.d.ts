@@ -1,6 +1,7 @@
 export declare class ConfirmDaviplataDto {
-    readonly token: string;
-    readonly otp: number;
+    readonly otp: string;
     readonly idSessionToken: string;
-    readonly formPse: any;
+    readonly idComercio: string;
+    readonly idTerminal: string;
+    readonly idTransaccion: number;
 }

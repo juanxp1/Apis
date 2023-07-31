@@ -1,19 +1,17 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, isString } from 'class-validator';
 
 export class BuyDaviplataDto {
   @IsString()
   @IsNotEmpty()
-  readonly token: string;
+  readonly valor: string;
 
   @IsString()
   @IsNotEmpty()
-  readonly value: number;
+  readonly numeroIdentificacion: string;
 
   @IsString()
   @IsNotEmpty()
-  readonly document: string;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly typeDocument: string
+  readonly tipoDocumento: string;
 }
+
+

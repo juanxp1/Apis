@@ -7,6 +7,10 @@ export class OtpDaviplataDto {
 
   @IsString()
   @IsNotEmpty()
-  readonly numberDocument: number;
+  readonly numberDocument: string;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly notificationType: string
 
 }

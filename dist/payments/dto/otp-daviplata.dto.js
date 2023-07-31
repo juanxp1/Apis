@@ -21,7 +21,12 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], OtpDaviplataDto.prototype, "numberDocument", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], OtpDaviplataDto.prototype, "notificationType", void 0);
 exports.OtpDaviplataDto = OtpDaviplataDto;
 //# sourceMappingURL=otp-daviplata.dto.js.map

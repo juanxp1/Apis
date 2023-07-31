@@ -9,11 +9,11 @@ export declare class AuthService {
     constructor(usersService: UserService, jwtService: JwtService, configService: ConfigService);
     signUp(createUserEntity: Oid): Promise<Oid>;
     signIn(loginUserDto: Oid): Promise<{
-        access_token: any;
+        access_token: string;
     }>;
     validateToken(token: string): Promise<any>;
     validateUser(username: string, password: string): Promise<Oid | undefined>;
     login(user: any): Promise<{
-        access_token: any;
+        access_token: string;
     }>;
 }

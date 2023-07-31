@@ -1,4 +1,5 @@
 export declare class OtpDaviplataDto {
     readonly typeDocument: string;
-    readonly numberDocument: number;
+    readonly numberDocument: string;
+    readonly notificationType: string;
 }

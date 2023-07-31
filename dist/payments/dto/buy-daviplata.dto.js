@@ -17,21 +17,16 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], BuyDaviplataDto.prototype, "token", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
-], BuyDaviplataDto.prototype, "value", void 0);
+], BuyDaviplataDto.prototype, "valor", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], BuyDaviplataDto.prototype, "document", void 0);
+], BuyDaviplataDto.prototype, "numeroIdentificacion", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], BuyDaviplataDto.prototype, "typeDocument", void 0);
+], BuyDaviplataDto.prototype, "tipoDocumento", void 0);
 exports.BuyDaviplataDto = BuyDaviplataDto;
 //# sourceMappingURL=buy-daviplata.dto.js.map

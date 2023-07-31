@@ -5,6 +5,9 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": "20.5.0"
+  },
   "scripts": {
     "build": "nest build && cpy \"src/utils/certified/*\" \"dist/utils/certified\"",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
